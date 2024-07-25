@@ -1,0 +1,62 @@
+﻿@model rehber.Models.KisiModel.KisiIndexViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> </h2>
+
+@Html.ActionLink("Yeni Kisi", "Ekle", null, new { @class = "btn btn-primary" })
+
+
+<br />
+<br />
+
+
+<h2 class="baslik">Rehber</h2>
+<table class="table">
+    <tr>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        @*<th>Mail Gönder</th>*@
+        <th>Şehir</th>
+        <th>İşlemler</th>
+        @*<th>Username</th>*@
+
+    </tr>
+
+    @foreach (var kisi in Model.Kisiler)
+    {
+        if (true)
+        {
+            //kullanici.Username.Equals(Session["UsernameSS"])
+            
+
+            <tr>
+                <td>@kisi.Ad</td>
+                <td>@kisi.SoyAd</td>
+                <td>@kisi.Telefon</td>
+                <td>@kisi.Email</td>
+                @*<th>@Html.ActionLink("Mail Gönder", "MailGonder", new { id = kisi.Id })</th>*@
+                <td>@kisi.Sehir.SehirAdi</td>
+
+                <td>
+                    @*<a href="/Kisi/Guncelle/@kisi.Id">Güncelle</a>*@
+
+                    @Html.ActionLink("Güncelle", "Guncelle", new { id = kisi.Id }) |
+
+                    @Html.ActionLink("Detay", "Detay", new { id = kisi.Id }) |
+
+                    @Html.ActionLink("Sil", "Sil", new { id = kisi.Id }, new { onclick = "return confirm('Kaydı Silmek İstediğinize Emin Misiniz?');" })
+                </td>
+            </tr>
+    }
+}
+        </table>
+
+
+
+
+

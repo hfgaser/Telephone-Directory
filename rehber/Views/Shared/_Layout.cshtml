@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @if (Session["UsernameSS"] != null)
+                {
+                    @Html.ActionLink("Rehber", "Index", "Kisi", new { area = "" }, new { @class = "navbar-brand" })
+                }
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Session["UsernameSS"] != null)
+                    {
+
+                        <li>@Html.ActionLink("Şehirler", "Index", "Sehir")</li>
+                        <li>@Html.ActionLink("Kişiler", "Index", "Kisi")</li>
+
+                    }
+
+                </ul>
+                <ul class="nav navbar-nav" style="float:right !important">
+                    @if (Session["UsernameSS"] != null)
+                    {
+                        <li> <p style="color:brown;margin-top:15px;"> Hello @Session["UsernameSS"]!</p></li>
+                        <li>@Html.ActionLink("Çıkış Yap", "CikisYap", "Kullanici")</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Kayıt Ol", "Kaydol", "Kullanici")</li>
+                        <li>@Html.ActionLink("Giriş Yap", "GirisYap", "Kullanici")</li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container body-content">
+        @if (TempData["BasariliMesaj"] != null)
+        {
+
+            <div class="alert alert-success">
+                @TempData["BasariliMesaj"]
+            </div>
+
+        }
+
+        @if (TempData["HatlaliMesaj"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["HataliMesaj"];
+            </div>
+        }
+
+
+
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Bize Ulaşın: 0555 555 55 55</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
