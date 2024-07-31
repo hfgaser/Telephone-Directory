@@ -111,9 +111,31 @@ namespace rehber.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Sehir sehir = db.Sehirler.Find(id);
-            db.Sehirler.Remove(sehir);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var checkSehir = db.Kisiler.Where(x => x.Id.ToString() == "");
+
+            if (checkSehir.Count() == 0)
+            {
+                db.Sehirler.Remove(sehir);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Notification = "Bu şehire kayıtlı bir kişi mevcut.";
+                return RedirectToAction("Delete");
+            }
+            //if (kisi.Id.ToString() == "")
+            //{
+            //    db.Sehirler.Remove(sehir);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //{
+            //    ViewBag.Notification = "Bu şehire kayıtlı bir kişi mevcut.";
+            //    return RedirectToAction("Delete");
+            //}
+
         }
 
         protected override void Dispose(bool disposing)

@@ -72,7 +72,7 @@ namespace rehber.Controllers
         public ActionResult GirisYap(Kullanici kullanici)
         {
             var checkLogin = db.Kullanicilar.Where(x => x.Username.Equals(kullanici.Username) && x.Password.Equals(kullanici.Password)).FirstOrDefault();
-            if(checkLogin != null)
+            if (checkLogin != null)
             {
                 Session["IdSS"] = checkLogin.Id.ToString();
                 Session["UsernameSS"] = checkLogin.Username.ToString();

@@ -9,7 +9,7 @@ namespace rehber.Models.Context
 {
     public class MvcRehberContext:DbContext
     {
-        public MvcRehberContext():base("Server=(localdb)\\MSSQLLocalDB;Database=MvcRehberDB;Trusted_Connection=true")
+        public MvcRehberContext():base("Server=DESKTOP-LC7JQ7I;Database=MvcRehberDB;Trusted_Connection=true")
         {
 
         }
