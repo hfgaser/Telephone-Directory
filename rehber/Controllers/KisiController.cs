@@ -22,7 +22,7 @@ namespace rehber.Controllers
 
             var model = new KisiIndexViewModel
             {
-                Kisiler = db.Kisiler.Where(x=> x.CurrentId==simdikiKullanici).ToList(),
+                Kisiler = db.Kisiler.Where(x => x.CurrentId == simdikiKullanici).ToList(),
                 Sehirler = db.Sehirler.ToList(),
                 //Kullanicilar = db.Kullanicilar.ToList(),
             };
@@ -67,9 +67,9 @@ namespace rehber.Controllers
         [HttpGet]
         public ActionResult Guncelle(int id)
         {
-            var kisi =db.Kisiler.Find(id);
-            
-            if(kisi == null)
+            var kisi = db.Kisiler.Find(id);
+
+            if (kisi == null)
             {
                 TempData["HataliMesaj"] = "Güncellenmek istenen kayıt bulunamadı!";
                 return RedirectToAction("Index");
@@ -83,14 +83,14 @@ namespace rehber.Controllers
 
             ViewBag.Sehirler = new SelectList(db.Sehirler.ToList(), "Id", "SehirAdi");
             return View(model);
-            
+
         }
         [HttpPost]
         public ActionResult Guncelle(Kisi kisi)
         {
             var eskiKisi = db.Kisiler.Find(kisi.Id);
 
-            if(eskiKisi == null)
+            if (eskiKisi == null)
             {
                 TempData["HataliMesaj"] = "Güncellenmek istenen kayıt bulunamadı!";
                 return RedirectToAction("Index");
@@ -101,7 +101,7 @@ namespace rehber.Controllers
             eskiKisi.Telefon = kisi.Telefon;
             eskiKisi.Email = kisi.Email;
             eskiKisi.Adres = kisi.Adres;
-            eskiKisi.SehirId= kisi.SehirId;
+            eskiKisi.SehirId = kisi.SehirId;
 
             db.SaveChanges();
 
@@ -114,7 +114,7 @@ namespace rehber.Controllers
 
         [HttpGet]
 
-        public ActionResult Detay(int id,string username)
+        public ActionResult Detay(int id, string username)
         {
 
             var kisi = db.Kisiler.Find(id);
@@ -131,7 +131,7 @@ namespace rehber.Controllers
                 Kisi = kisi,
                 Kullanici = kullanici,
                 Sehirler = db.Sehirler.ToList()
-                
+
             };
             return View(model);
         }
@@ -140,7 +140,7 @@ namespace rehber.Controllers
         {
             var kisi = db.Kisiler.Find(id);
 
-            if(kisi == null)
+            if (kisi == null)
             {
                 TempData["HataliMesaj"] = "Kişi Bulunamadı!";
                 return RedirectToAction("Index");
@@ -163,45 +163,8 @@ namespace rehber.Controllers
             }
             return View(kisi);
         }
-        [HttpPost]
-        public ActionResult MailGonder(string MailAdres,string Baslik,string Mesaj)
-        {
-            try
-            {
-                var gondericimail = new MailAddress("hfgdeneme@gmail.com");
-                var sifre = "salata123";
-                var aliciMail = new MailAddress(MailAdres);
 
-                var smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(gondericimail.Address, sifre)
 
-                };
-
-                using (var msg = new MailMessage(gondericimail, aliciMail)
-                {
-                    IsBodyHtml = true,
-                    Subject = Baslik,
-                    Body = Mesaj,
-
-                })
-                {
-                    smtp.Send(msg);
-                }
-                TempData["BasariliMesaj"] = "Mail Gönderme İşlemi Başarıyla Gerçekleşti";
-                return RedirectToAction("Index");
-            }
-            catch (Exception)
-            {
-                TempData["HataliMesaj"] = "Mail Gönderme İşlemi Sırasında Hata Oluştu";
-                return RedirectToAction("Index");
-            }
-        }
 
     }
 }
