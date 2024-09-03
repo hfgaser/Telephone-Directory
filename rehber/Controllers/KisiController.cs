@@ -153,16 +153,7 @@ namespace rehber.Controllers
 
             return RedirectToAction("Index");
         }
-        public ActionResult MailGonder(int id)
-        {
-            var kisi = db.Kisiler.Find(id);
-            if (kisi == null)
-            {
-                TempData["HataliMesaj"] = "Kişi Bulunamadı!";
-                return RedirectToAction("Index");
-            }
-            return View(kisi);
-        }
+        
 
 
 
